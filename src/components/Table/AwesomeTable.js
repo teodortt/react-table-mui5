@@ -14,6 +14,18 @@ import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import TableToolbar from "./TableToolbar";
 import { makeStyles } from '@mui/styles';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import { styled } from '@mui/material/styles';
+import AppBar from "../AppBar";
+import AddUserDialog from "../../pages/Users/AddUserDialog";
+
 import {
   useGlobalFilter,
   usePagination,
@@ -21,6 +33,35 @@ import {
   useSortBy,
   useTable
 } from "react-table";
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(3),
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'left',
+  color: theme.palette.text.secondary,
+}));
+
+function BasicBreadcrumbs() {
+  return (
+    <div role="presentation">
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" href="/">
+          Dashboard
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          href="/getting-started/installation/"
+        >
+          User
+        </Link>
+        <Typography color="text.primary">List</Typography>
+      </Breadcrumbs>
+    </div>
+  );
+}
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -121,84 +162,104 @@ const AwesomeTable = ({ columns, data, deleteRowsHandler, actions, title }) => {
 
   // Render the UI for your table
   return (
-    <TableContainer>
-      <TableToolbar
-        numSelected={Object.keys(selectedRowIds).length}
-        deleteRowsHandler={(event) => {
-          deleteRowsHandler(event, selectedRowIds);
-        }}
-        title={title}
-        actions={actions}
-        preGlobalFilteredRows={preGlobalFilteredRows}
-        setGlobalFilter={setGlobalFilter}
-        globalFilter={globalFilter}
-      />
-      <MaUTable {...getTableProps()}>
-        <TableHead>
-          {headerGroups.map((headerGroup) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <TableCell
-                  {...(column.id === "selection"
-                    ? column.getHeaderProps()
-                    : column.getHeaderProps(column.getSortByToggleProps()))}
-                >
-                  {column.render("Header")}
-                  {column.id !== "selection" ? (
-                    <TableSortLabel
-                      active={column.isSorted}
-                      // react-table has a unsorted state which is not treated here
-                      direction={column.isSortedDesc ? "desc" : "asc"}
-                    />
-                  ) : null}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableHead>
-        <TableBody>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <TableRow {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <TableCell {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })}
-        </TableBody>
+    <>
+      <CssBaseline />
+      {/* <Container maxWidth="lg"> */}
 
-        <TableFooter className={classes.stickyFooter}>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[
-                5,
-                10,
-                25,
-                { label: "All", value: data.length }
-              ]}
-              colSpan={3}
-              count={data.length}
-              rowsPerPage={pageSize}
-              page={pageIndex}
-              labelRowsPerPage={<span>Rows:</span>}
-              SelectProps={{
-                inputProps: { "aria-label": "rows per page" },
-                native: true
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </MaUTable>
-    </TableContainer>
+      <AddUserDialog />
+      {/* <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+          <Box gridColumn="span 8">
+            <Item>xs=8</Item>
+            <BasicBreadcrumbs />
+
+          </Box>
+          <Box gridColumn="span 4">
+            <Item>xs=4</Item>
+            <AddUserDialog />
+
+          </Box>
+        </Box> */}
+      {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
+      {/* </Container> */}
+      <TableContainer>
+        <TableToolbar
+          numSelected={Object.keys(selectedRowIds).length}
+          deleteRowsHandler={(event) => {
+            deleteRowsHandler(event, selectedRowIds);
+          }}
+          title={title}
+          actions={actions}
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          setGlobalFilter={setGlobalFilter}
+          globalFilter={globalFilter}
+        />
+        <MaUTable {...getTableProps()}>
+          <TableHead>
+            {headerGroups.map((headerGroup) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <TableCell
+                    {...(column.id === "selection"
+                      ? column.getHeaderProps()
+                      : column.getHeaderProps(column.getSortByToggleProps()))}
+                  >
+                    {column.render("Header")}
+                    {column.id !== "selection" ? (
+                      <TableSortLabel
+                        active={column.isSorted}
+                        // react-table has a unsorted state which is not treated here
+                        direction={column.isSortedDesc ? "desc" : "asc"}
+                      />
+                    ) : null}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableHead>
+          <TableBody>
+            {page.map((row, i) => {
+              prepareRow(row);
+              return (
+                <TableRow {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <TableCell {...cell.getCellProps()}>
+                        {cell.render("Cell")}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+
+          <TableFooter className={classes.stickyFooter}>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[
+                  5,
+                  10,
+                  25,
+                  { label: "All", value: data.length }
+                ]}
+                colSpan={3}
+                count={data.length}
+                rowsPerPage={pageSize}
+                page={pageIndex}
+                labelRowsPerPage={<span>Rows:</span>}
+                SelectProps={{
+                  inputProps: { "aria-label": "rows per page" },
+                  native: true
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </MaUTable>
+      </TableContainer>
+    </>
   );
 };
 

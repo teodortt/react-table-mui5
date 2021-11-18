@@ -62,7 +62,7 @@ const Users = () => {
         columns={columns}
         data={data}
         deleteRowsHandler={deleteUsersHandler}
-        actions={[<AddUserDialog addUserHandler={addUserHandler} />]}
+      // actions={[<AddUserDialog addUserHandler={addUserHandler} />]}
       />
     </div>
   );

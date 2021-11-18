@@ -124,20 +124,20 @@ const AddUserDialog = (props) => {
 
   function BasicBreadcrumbs() {
     return (
-      <div role="presentation" style={{ paddingBottom: '10px' }}>
+      <div role="presentation" style={{ paddingBottom: '10px', color: 'black' }}>
         <p><b>User List</b></p>
         <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="white" href="/">
+          <Link underline="hover" color="black" href="/">
             Dashboard
           </Link>
           <Link
             underline="hover"
-            color="white"
+            color="black"
             href="/getting-started/installation/"
           >
             User
           </Link>
-          <Typography color="white">List</Typography>
+          <Typography color="black">List</Typography>
         </Breadcrumbs>
       </div>
     );
@@ -190,7 +190,7 @@ const AddUserDialog = (props) => {
 
       {/*  */}
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="fixed">
+        <AppBar position="fixed" style={{ background: 'white' }}>
           <Toolbar>
             <BasicBreadcrumbs />
             {/* <IconButton
@@ -222,9 +222,9 @@ const AddUserDialog = (props) => {
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Tooltip title="Add">
-                <IconButton aria-label="add" style={{ borderRadius: 7, background: '#65a665', color: 'white', paddingInline: '15px' }} onClick={handleClickOpen}>
+                <IconButton aria-label="add" style={{ borderRadius: 7, background: '#65a665', color: 'white', paddingInline: '15px', fontSize: 14 }} onClick={handleClickOpen}>
                   <AddIcon />
-                  New User
+                  <b>New User</b>
                 </IconButton>
               </Tooltip>
 

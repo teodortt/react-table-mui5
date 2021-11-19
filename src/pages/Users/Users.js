@@ -58,7 +58,7 @@ const Users = () => {
     <div>
       <CssBaseline />
       <AwesomeTable
-        title="Users"
+        title=""
         columns={columns}
         data={data}
         deleteRowsHandler={deleteUsersHandler}

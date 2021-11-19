@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     borderRadius: 5,
     backgroundColor: '#c1cee3',
-    marginLeft: 100,
+    // marginLeft: 100,
     width: 'auto',
   },
   searchIcon: {

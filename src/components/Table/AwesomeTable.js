@@ -165,8 +165,9 @@ const AwesomeTable = ({ columns, data, deleteRowsHandler, actions, title }) => {
     <>
       <CssBaseline />
       {/* <Container maxWidth="lg"> */}
-
-      <AddUserDialog />
+      <div style={{ paddingBottom: 100 }}>
+        <AddUserDialog />
+      </div>
       {/* <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
           <Box gridColumn="span 8">
             <Item>xs=8</Item>

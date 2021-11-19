@@ -4,7 +4,7 @@ import clsx from "clsx";
 import DeleteIcon from '@mui/icons-material/Delete';
 import GlobalFilter from "./GlobalFilter";
 import IconButton from '@mui/material/IconButton'
-import { lighten, styled } from "@mui/material/styles";
+import { alpha, lighten, styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -31,7 +31,7 @@ const useToolbarStyles = styled((theme) => ({
 }));
 
 const TableToolbar = (props) => {
-  const classes = useToolbarStyles();
+  // const classes = useToolbarStyles();
   const {
     numSelected,
     deleteRowsHandler,
@@ -43,23 +43,37 @@ const TableToolbar = (props) => {
   } = props;
   return (
     <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0
-      })}
+      // className={clsx(classes.root, {
+      //   [classes.highlight]: numSelected > 0
+      // })}
+
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+        ...(numSelected > 0 && {
+          bgcolor: (theme) =>
+            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+        }),
+      }}
     >
       {actions.map((action) => (
         <>{action}</>
       ))}
       {numSelected > 0 ? (
         <Typography
-          className={classes.title}
+          sx={{ flex: '1 1 100%' }}
           color="inherit"
           variant="subtitle1"
+          component="div"
         >
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle">
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          component="div"
+          variant="h6"
+          id="tableTitle">
           {title}
         </Typography>
       )}
